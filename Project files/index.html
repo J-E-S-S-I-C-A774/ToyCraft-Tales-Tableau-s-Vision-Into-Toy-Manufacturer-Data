@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToyCraft Tales</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(-45deg, #4e73df, #1cc88a, #36b9cc, #f6c23e);
+    background-size:400% 400%;
+    animation: gradientBG 12s ease infinite;
+    color:white;
+    text-align:center;
+}
+
+/* Floating animation background circles */
+body::before, body::after{
+    content:"";
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    animation: float 8s infinite ease-in-out alternate;
+}
+
+body::after{
+    width:300px;
+    height:300px;
+    bottom:50px;
+    right:50px;
+    animation-delay:2s;
+}
+
+.container{
+    animation: fadeSlide 2s ease forwards;
+}
+
+h1{
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:10px;
+    animation: glow 2s infinite alternate;
+}
+
+h2{
+    font-weight:300;
+    margin-bottom:40px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+
+.btn{
+    padding:15px 40px;
+    border:none;
+    border-radius:50px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    text-decoration:none;
+    color:#333;
+    background:white;
+    transition:0.4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    width:0%;
+    height:100%;
+    left:0;
+    top:0;
+    background:linear-gradient(90deg,#f6c23e,#e74a3b);
+    transition:0.4s;
+    z-index:-1;
+}
+
+.btn:hover::before{
+    width:100%;
+}
+
+.btn:hover{
+    color:white;
+    transform:scale(1.1) rotate(-2deg);
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Animations */
+@keyframes fadeSlide{
+    from{
+        opacity:0;
+        transform:translateY(60px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+@keyframes float{
+    from{transform:translateY(-30px);}
+    to{transform:translateY(30px);}
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 10px #fff;}
+    to{text-shadow:0 0 25px #ffd700;}
+}
+
+@media(max-width:768px){
+    h1{font-size:2rem;}
+    .buttons{flex-direction:column;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🧸 ToyCraft Tales</h1>
+    <h2>Tableau's Vision Into Toy Manufacturer Data</h2>
+
+    <div class="buttons">
+        <a class="btn" href="https://public.tableau.com/views/Book1_17720076302810/Dasboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank">
+            📊 View Dashboard
+        </a>
+
+        <a class="btn" href="https://public.tableau.com/shared/FBNSCHNCB?:display_count=n&:origin=viz_share_link" target="_blank">
+            📖 View Story Board
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
