@@ -1,90 +1,88 @@
 🎯 ToyCraft Tales: Tableau's Vision Into Toy Manufacturer Data
 
 Course: Data Analytics and Tableau
-Project Level: Advanced Analytics & Business Intelligence
 
-📌 1️⃣ Executive Summary
+📌 STEP 1: Project Overview
+🎯 Objective
 
-ToyCraft Tales is a comprehensive Business Intelligence project that analyzes toy manufacturer sales data using advanced data analytics techniques in Tableau.
+To analyze toy manufacturer sales data using MySQL and Tableau, and build an interactive dashboard that helps business decision-making.
 
-The project integrates structured data from MySQL, performs preprocessing, creates calculated metrics, and delivers interactive dashboards with strategic business insights.
+📌 STEP 2: MySQL Database Setup
+1️⃣ Create Database
+CREATE DATABASE toycraft_db;
+USE toycraft_db;
+2️⃣ Create Table
+CREATE TABLE toy_sales (
+    order_id INT,
+    order_date DATE,
+    region VARCHAR(50),
+    manufacturer VARCHAR(100),
+    category VARCHAR(100),
+    product_name VARCHAR(150),
+    units_sold INT,
+    sales DECIMAL(10,2),
+    profit DECIMAL(10,2)
+);
+3️⃣ Import Data
 
-The objective is not only visualization — but actionable business intelligence.
+Use MySQL Workbench
 
-🎯 2️⃣ Business Problem Statement
+Table → Import Wizard
 
-Toy manufacturers often struggle with:
+Select CSV file
 
-Identifying high-performing products
+4️⃣ Important SQL Queries Used
+🔹 Total Revenue
+SELECT SUM(sales) AS total_revenue FROM toy_sales;
+🔹 Profit by Category
+SELECT category, SUM(profit) 
+FROM toy_sales
+GROUP BY category;
+🔹 Regional Performance
+SELECT region, SUM(sales), SUM(profit)
+FROM toy_sales
+GROUP BY region;
+📌 STEP 3: Connect MySQL to Tableau
 
-Understanding regional demand variations
+Open Tableau
 
-Monitoring profit fluctuations
+Connect → MySQL
 
-Tracking manufacturer contributions
+Enter:
 
-Forecasting seasonal demand
+Server: localhost
 
-This project addresses these challenges using visual analytics.
+Username
 
-🛠 3️⃣ Technology Architecture
-🔹 Data Layer
+Password
 
-MySQL Database (toycraft_db)
+Select database → toycraft_db
 
-🔹 Processing Layer
+Drag table to canvas
 
-Data Cleaning (Excel / SQL)
+📌 STEP 4: Data Preparation in Tableau
+✔ Clean Data
 
-Calculated Fields in Tableau
+Check null values
 
-🔹 Visualization Layer
+Rename columns
 
-Tableau Dashboard
+Change date format
 
-Tableau Story
-
-🔹 Optional Deployment
-
-Flask Web Integration
-
-BootstrapMade UI Template
-
-🧹 4️⃣ Advanced Data Preprocessing
-✔ Data Cleaning
-
-Removed duplicate transaction IDs
-
-Standardized category names
-
-Replaced NULL profit values
-
-Validated numeric fields
-
-✔ Data Transformation
-
-Converted Order Date to Date format
-
-Created Year and Quarter fields
-
-Extracted Month Name
-
-✔ Calculated Fields Created
-
+✔ Create Calculated Fields
 1️⃣ Profit Margin
-Profit / Sales
+SUM([Profit]) / SUM([Sales])
+2️⃣ Year Field
+YEAR([Order Date])
+3️⃣ Growth Rate
+(SUM([Sales]) - LOOKUP(SUM([Sales]), -1)) 
+/ ABS(LOOKUP(SUM([Sales]), -1))
+📌 STEP 5: Build Advanced Dashboard
+🎯 Dashboard 1: Executive Overview
 
-2️⃣ Growth Rate
-(Current Year Sales - Previous Year Sales) / Previous Year Sales
+Include:
 
-3️⃣ Regional Contribution %
-Region Sales / Total Sales
-
-4️⃣ Category Ranking
-Used RANK() function in Tableau
-
-📊 5️⃣ Advanced Visualizations
-1️⃣ Executive KPI Dashboard
+KPI Cards:
 
 Total Revenue
 
@@ -92,126 +90,156 @@ Total Profit
 
 Profit Margin %
 
-Year-over-Year Growth
+Total Units Sold
 
-Top Category
+Line Chart → Monthly Sales Trend
 
-Top Region
+Bar Chart → Category Sales
 
-Dynamic KPI cards with color indicators.
+Map → Regional Sales
 
-2️⃣ Category Performance Analysis
+Pie/Donut → Manufacturer Share
 
-Bar Chart + Profit Margin overlay
+📌 STEP 6: Interactive Filters
 
-Insight:
-Some categories generate high revenue but low margin — indicating cost issues.
+Add Filters:
 
-3️⃣ Regional Heat Map
+Region
 
-Color intensity based on revenue.
+Category
 
-Insight:
-South and West regions show highest growth potential.
+Manufacturer
 
-4️⃣ Time-Series Profit Analysis
+Date Range
 
-Line chart with trend line enabled.
+Right-click filter → Apply to Worksheets → All using this data source
 
-Trend Analysis:
-Identified seasonal spike during festive months.
+✅ Interactive filters allow dynamic exploration of data.
 
-5️⃣ Manufacturer Performance Matrix
+📌 STEP 7: Dashboard Design Best Practices
 
-Scatter Plot:
+Your dashboard must follow:
 
-X-axis: Sales
+✔ Use consistent color theme
+✔ Avoid too many colors
+✔ Use white background
+✔ Proper spacing
+✔ Align objects properly
+✔ Use readable font
+✔ Place KPIs at top
 
-Y-axis: Profit
+✅ Dashboard design follows best data visualization practices.
 
-Size: Units Sold
+📌 STEP 8: Create Tableau Story
 
-Used to classify:
+Click → New Story
 
-High Sales / High Profit → Star Performers
+🎯 Story Structure
+Slide 1 – Project Introduction
 
-High Sales / Low Profit → Optimization Required
+Objective & dataset summary
 
-🎛 6️⃣ Interactive Features (Advanced)
+Slide 2 – Revenue Analysis
 
-Region Filter
+Monthly & yearly trend
 
-Category Filter
+Slide 3 – Category Insights
 
-Manufacturer Filter
+Top & low performing categories
 
-Date Range Slider
+Slide 4 – Regional Insights
 
-Drill-Down Feature (Year → Quarter → Month)
+High growth regions
 
-Dashboard Actions (Click to Filter)
+Slide 5 – Manufacturer Analysis
 
-Interactive filters allow dynamic exploration of data.
+Top profitable manufacturers
 
-Dashboard design follows best data visualization practices including:
+Slide 6 – Final Recommendations
 
-Visual hierarchy
+Strategic suggestions
 
-Consistent color scheme
+📌 STEP 9: Flask Web Application (VS Code)
 
-Balanced layout
+This is for advanced submission (extra marks).
 
-Minimal clutter
+🔹 Project Folder Structure
+toycraft_project/
+│
+├── app.py
+├── templates/
+│     └── index.html
+└── static/
+🔹 Install Flask
+pip install flask
+🔹 app.py
+from flask import Flask, render_template
 
-Strategic KPI placement
+app = Flask(__name__)
 
-📖 7️⃣ Tableau Story Framework
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-Story Slides:
+if __name__ == "__main__":
+    app.run(debug=True)
+🔹 index.html (BootstrapMade Style Template)
 
-1️⃣ Executive Overview
-2️⃣ Revenue Analysis
-3️⃣ Profitability Breakdown
-4️⃣ Regional Insights
-5️⃣ Manufacturer Evaluation
-6️⃣ Business Recommendations
+Use BootstrapMade template (like "Arsha" or "BizLand")
 
-This storytelling approach enhances decision-making clarity.
+Paste this inside templates/index.html:
 
-🔍 8️⃣ Advanced Insights
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ToyCraft Tales Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-High revenue does not always mean high profitability
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand">ToyCraft Tales</span>
+  </div>
+</nav>
 
-Certain categories show declining profit margins
+<div class="container mt-4">
+  <h2 class="text-center">Tableau Dashboard</h2>
 
-Regional demand patterns show seasonality
+  <div class="ratio ratio-16x9">
+    <iframe 
+      src="PASTE_YOUR_TABLEAU_PUBLIC_LINK_HERE"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
 
-20% of manufacturers generate 80% of profit (Pareto principle observed)
+</body>
+</html>
+🔹 Run Project
+python app.py
 
-💡 9️⃣ Strategic Business Recommendations
+Open:
 
-Focus on high-margin categories
+http://127.0.0.1:5000/
 
-Improve cost control in low-margin segments
+🎯 Final Conclusion
 
-Expand distribution in high-growth regions
+ToyCraft Tales transforms raw sales data into actionable business intelligence using:
 
-Build partnerships with star manufacturers
+MySQL (Data Storage)
 
-Implement seasonal marketing campaigns
+Tableau (Visualization)
 
-🔮 🔟 Predictive & Future Scope
+Flask (Deployment)
 
-Forecasting sales using Tableau trend models
+Bootstrap (UI Design)
 
-Integration with real-time ERP system
+This project demonstrates real-world data analytics implementation suitable for business environments.
 
-AI-based demand prediction
-
-Web-based dashboard deployment
-
-Automated reporting system
 
 👩‍💻 Author
 
-AM.JESSICA  B.Sc Statistics Student Tableau Data Visualization Project
+Alexander Mercelin Jessica B.Sc Statistics Student Tableau Data Visualization Project
